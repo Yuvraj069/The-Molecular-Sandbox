@@ -23,155 +23,28 @@
             --text-primary: #e2e8f0;
             --text-secondary: #94a3b8;
         }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--dark-bg);
-            color: var(--text-primary);
-        }
-
-        .futuristic-bg {
-            background-color: var(--dark-bg);
-            background-image: radial-gradient(circle at 1% 1%, var(--primary-glow), transparent 25%), radial-gradient(circle at 99% 99%, var(--secondary-glow), transparent 25%);
-            background-size: 300% 300%;
-            animation: gradient-animation 10s ease-in-out infinite;
-        }
-
-        @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .page, .app-section {
-            animation: fadeInSlideUp 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-
-        @keyframes fadeInSlideUp {
-            from { opacity: 0; transform: translateY(25px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 0 40px rgba(0, 246, 255, 0.1);
-        }
-
-        .btn-primary {
-            @apply w-full font-bold py-3 px-6 rounded-lg transition-all duration-300;
-            background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
-            color: var(--dark-bg);
-            box-shadow: 0 0 10px var(--primary-glow), 0 0 20px var(--secondary-glow);
-            transform: perspective(1px) translateZ(0);
-        }
-        .btn-primary:hover {
-            box-shadow: 0 0 20px var(--primary-glow), 0 0 40px var(--secondary-glow);
-            transform: scale(1.02);
-        }
-        
-        .input-styled {
-            @apply mt-1 block w-full px-4 py-3 rounded-md shadow-sm transition-all duration-300;
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-        }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--dark-bg); color: var(--text-primary); }
+        .futuristic-bg { background-color: var(--dark-bg); background-image: radial-gradient(circle at 1% 1%, var(--primary-glow), transparent 25%), radial-gradient(circle at 99% 99%, var(--secondary-glow), transparent 25%); background-size: 300% 300%; animation: gradient-animation 10s ease-in-out infinite; }
+        @keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .page, .app-section { animation: fadeInSlideUp 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        @keyframes fadeInSlideUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+        .glass-card { background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border-color); box-shadow: 0 0 40px rgba(0, 246, 255, 0.1); }
+        .btn-primary { @apply w-full font-bold py-3 px-6 rounded-lg transition-all duration-300; background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow)); color: var(--dark-bg); box-shadow: 0 0 10px var(--primary-glow), 0 0 20px var(--secondary-glow); transform: perspective(1px) translateZ(0); }
+        .btn-primary:hover { box-shadow: 0 0 20px var(--primary-glow), 0 0 40px var(--secondary-glow); transform: scale(1.02); }
+        .input-styled { @apply mt-1 block w-full px-4 py-3 rounded-md shadow-sm transition-all duration-300; background: rgba(0,0,0,0.2); border: 1px solid var(--border-color); color: var(--text-primary); }
         .input-styled::placeholder { color: var(--text-secondary); }
-        .input-styled:focus {
-            outline: none;
-            border-color: var(--primary-glow);
-            box-shadow: 0 0 15px var(--primary-glow);
-        }
-        
-        .text-gradient-glow {
-            background: linear-gradient(90deg, var(--primary-glow), #fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 10px var(--primary-glow));
-        }
+        .input-styled:focus { outline: none; border-color: var(--primary-glow); box-shadow: 0 0 15px var(--primary-glow); }
+        .text-gradient-glow { background: linear-gradient(90deg, var(--primary-glow), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 10px var(--primary-glow)); }
     </style>
 </head>
 <body class="text-slate-200">
 
     <div id="app-container" class="min-h-screen">
 
-        <div id="page-auth" class="page hidden items-center justify-center min-h-screen p-4 futuristic-bg">
-            <div class="w-full max-w-md">
-                <div class="text-center mb-8">
-                    <h1 class="text-5xl font-extrabold text-gradient-glow">Molecular Sandbox</h1>
-                    <p class="text-slate-400 mt-2">Unlock Your Personal Health Matrix</p>
-                </div>
-
-                <div class="glass-card p-8 rounded-2xl shadow-2xl">
-                    <div id="login-view">
-                        <h2 class="text-3xl font-bold mb-6 text-center">User Authentication</h2>
-                        <form id="login-form" class="space-y-5">
-                            <div><input type="email" id="login-email" required class="input-styled" placeholder="Email Address"></div>
-                            <div><input type="password" id="login-password" required class="input-styled" placeholder="Password"></div>
-                            <p id="login-error" class="text-sm text-red-400 hidden pt-1"></p>
-                            <button type="submit" class="btn-primary !mt-8">Access Terminal</button>
-                        </form>
-                        <p class="text-center text-sm text-slate-400 mt-6">
-                            New user? <a href="#" onclick="toggleAuthView('signup')" class="font-semibold text-cyan-400 hover:underline">Initiate Registration</a>
-                        </p>
-                    </div>
-                    <div id="signup-view" class="hidden">
-                        <h2 class="text-3xl font-bold mb-6 text-center">New User Registration</h2>
-                        <form id="signup-form" class="space-y-5">
-                            <div><input type="email" id="signup-email" required class="input-styled" placeholder="Email Address"></div>
-                            <div><input type="password" id="signup-password" required minlength="6" class="input-styled" placeholder="Create Secure Password"></div>
-                             <p id="signup-error" class="text-sm text-red-400 hidden pt-1"></p>
-                            <button type="submit" class="btn-primary !mt-8">Create Profile</button>
-                        </form>
-                        <p class="text-center text-sm text-slate-400 mt-6">
-                            Already registered? <a href="#" onclick="toggleAuthView('login')" class="font-semibold text-cyan-400 hover:underline">Login</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="page-details" class="page hidden items-center justify-center min-h-screen p-4 futuristic-bg">
-            <div class="w-full max-w-md glass-card p-8 rounded-2xl">
-                 <h2 class="text-2xl font-bold mb-2">User Data Imprint</h2>
-                <p class="text-slate-400 mb-6">Calibrating your personal dashboard.</p>
-                <form id="details-form" class="space-y-4">
-                    <div><label class="block text-sm font-medium text-slate-400">Alias / Name</label><input type="text" id="name" required class="input-styled"></div>
-                    <div class="grid grid-cols-3 gap-4">
-                        <div><label class="block text-sm font-medium text-slate-400">Age</label><input type="number" id="age" required class="input-styled"></div>
-                        <div><label class="block text-sm font-medium text-slate-400">Height (cm)</label><input type="number" id="height" required class="input-styled"></div>
-                        <div><label class="block text-sm font-medium text-slate-400">Weight (kg)</label><input type="number" id="weight" required class="input-styled"></div>
-                    </div>
-                    <button type="submit" class="btn-primary !mt-6">Next: Health Scan</button>
-                </form>
-            </div>
-        </div>
-
-        <div id="page-health" class="page hidden items-center justify-center min-h-screen p-4 futuristic-bg">
-             <div class="w-full max-w-lg glass-card p-8 rounded-2xl">
-                <h2 class="text-2xl font-bold mb-2">Health Status Input</h2>
-                <p class="text-slate-400 mb-6">Log current conditions and protocols.</p>
-                <form id="health-form" class="space-y-6">
-                    <div id="conditions-container" class="space-y-4"><div class="condition-entry"><label class="block text-sm font-medium text-slate-400">Condition & Medication</label><input type="text" placeholder="e.g., Hypertension" class="condition-name input-styled" required><input type="text" placeholder="Medication (e.g., Lisinopril)" class="condition-medication input-styled mt-2"></div></div>
-                    <button type="button" onclick="addCondition()" class="text-sm text-cyan-400 font-semibold hover:underline">+ Add Data Point</button>
-                    <button type="submit" class="btn-primary !mt-6">Next: Genetic History</button>
-                </form>
-            </div>
-        </div>
-
-        <div id="page-family" class="page hidden items-center justify-center min-h-screen p-4 futuristic-bg">
-             <div class="w-full max-w-lg glass-card p-8 rounded-2xl">
-                 <h2 class="text-2xl font-bold mb-2">Genetic History Archive</h2>
-                <p class="text-slate-400 mb-6">Input known hereditary data.</p>
-                <form id="family-form" class="space-y-6">
-                    <div id="family-history-container" class="space-y-4"><div class="family-entry"><label class="block text-sm font-medium text-slate-400">Hereditary Condition</label><input type="text" placeholder="e.g., Type 2 Diabetes" class="family-condition input-styled" required></div></div>
-                    <button type="button" onclick="addFamilyHistory()" class="text-sm text-cyan-400 font-semibold hover:underline">+ Add Data Point</button>
-                    <button type="submit" class="btn-primary !mt-6">Generate Health Matrix</button>
-                </form>
-            </div>
-        </div>
+        <div id="page-auth" class="page hidden items-center justify-center min-h-screen p-4 futuristic-bg"> <div class="w-full max-w-md"> <div class="text-center mb-8"> <h1 class="text-5xl font-extrabold text-gradient-glow">Molecular Sandbox</h1> <p class="text-slate-400 mt-2">Unlock Your Personal Health Matrix</p> </div> <div class="glass-card p-8 rounded-2xl shadow-2xl"> <div id="login-view"> <h2 class="text-3xl font-bold mb-6 text-center">User Authentication</h2> <form id="login-form" class="space-y-5"> <div><input type="email" id="login-email" required class="input-styled" placeholder="Email Address"></div> <div><input type="password" id="login-password" required class="input-styled" placeholder="Password"></div> <p id="login-error" class="text-sm text-red-400 hidden pt-1"></p> <button type="submit" class="btn-primary !mt-8">Access Terminal</button> </form> <p class="text-center text-sm text-slate-400 mt-6"> New user? <a href="#" onclick="toggleAuthView('signup')" class="font-semibold text-cyan-400 hover:underline">Initiate Registration</a> </p> </div> <div id="signup-view" class="hidden"> <h2 class="text-3xl font-bold mb-6 text-center">New User Registration</h2> <form id="signup-form" class="space-y-5"> <div><input type="email" id="signup-email" required class="input-styled" placeholder="Email Address"></div> <div><input type="password" id="signup-password" required minlength="6" class="input-styled" placeholder="Create Secure Password"></div> <p id="signup-error" class="text-sm text-red-400 hidden pt-1"></p> <button type="submit" class="btn-primary !mt-8">Create Profile</button> </form> <p class="text-center text-sm text-slate-400 mt-6"> Already registered? <a href="#" onclick="toggleAuthView('login')" class="font-semibold text-cyan-400 hover:underline">Login</a> </p> </div> </div> </div> </div>
+        <div id="page-details" class="page hidden items-center justify-center min-h-screen p-4 futuristic-bg"> <div class="w-full max-w-md glass-card p-8 rounded-2xl"> <h2 class="text-2xl font-bold mb-2">User Data Imprint</h2> <p class="text-slate-400 mb-6">Calibrating your personal dashboard.</p> <form id="details-form" class="space-y-4"> <div><label class="block text-sm font-medium text-slate-400">Alias / Name</label><input type="text" id="name" required class="input-styled"></div> <div class="grid grid-cols-3 gap-4"> <div><label class="block text-sm font-medium text-slate-400">Age</label><input type="number" id="age" required class="input-styled"></div> <div><label class="block text-sm font-medium text-slate-400">Height (cm)</label><input type="number" id="height" required class="input-styled"></div> <div><label class="block text-sm font-medium text-slate-400">Weight (kg)</label><input type="number" id="weight" required class="input-styled"></div> </div> <button type="submit" class="btn-primary !mt-6">Next: Health Scan</button> </form> </div> </div>
+        <div id="page-health" class="page hidden items-center justify-center min-h-screen p-4 futuristic-bg"> <div class="w-full max-w-lg glass-card p-8 rounded-2xl"> <h2 class="text-2xl font-bold mb-2">Health Status Input</h2> <p class="text-slate-400 mb-6">Log current conditions and protocols.</p> <form id="health-form" class="space-y-6"> <div id="conditions-container" class="space-y-4"><div class="condition-entry"><label class="block text-sm font-medium text-slate-400">Condition & Medication</label><input type="text" placeholder="e.g., Hypertension" class="condition-name input-styled" required><input type="text" placeholder="Medication (e.g., Lisinopril)" class="condition-medication input-styled mt-2"></div></div> <button type="button" onclick="addCondition()" class="text-sm text-cyan-400 font-semibold hover:underline">+ Add Data Point</button> <button type="submit" class="btn-primary !mt-6">Next: Genetic History</button> </form> </div> </div>
+        <div id="page-family" class="page hidden items-center justify-center min-h-screen p-4 futuristic-bg"> <div class="w-full max-w-lg glass-card p-8 rounded-2xl"> <h2 class="text-2xl font-bold mb-2">Genetic History Archive</h2> <p class="text-slate-400 mb-6">Input known hereditary data.</p> <form id="family-form" class="space-y-6"> <div id="family-history-container" class="space-y-4"><div class="family-entry"><label class="block text-sm font-medium text-slate-400">Hereditary Condition</label><input type="text" placeholder="e.g., Type 2 Diabetes" class="family-condition input-styled" required></div></div> <button type="button" onclick="addFamilyHistory()" class="text-sm text-cyan-400 font-semibold hover:underline">+ Add Data Point</button> <button type="submit" class="btn-primary !mt-6">Generate Health Matrix</button> </form> </div> </div>
         
         <div id="app-main" class="page hidden">
             <nav class="bg-black/30 backdrop-blur-md sticky top-0 z-50 border-b border-[var(--border-color)]">
@@ -193,6 +66,19 @@
             <main class="p-4 md:p-8">
                 <div id="dashboard" class="app-section max-w-7xl mx-auto">
                     <h1 id="welcome-message" class="text-4xl font-extrabold text-gradient-glow mb-6">Welcome!</h1>
+
+                    <div class="glass-card p-6 rounded-2xl mb-8 border-2 border-fuchsia-500/50 shadow-lg shadow-fuchsia-500/10">
+                        <div class="flex justify-between items-start gap-4">
+                            <div>
+                                <h3 class="text-xl font-bold mb-2">A Dose of Positivity</h3>
+                                <div id="fact-joke-content">
+                                    </div>
+                            </div>
+                            <button onclick="displayRandomFactOrJoke()" class="bg-slate-700/50 text-slate-300 hover:bg-slate-600/50 font-semibold py-2 px-4 rounded-lg transition text-sm flex items-center whitespace-nowrap">
+                                <i data-feather="refresh-cw" class="w-4 h-4 mr-2"></i>Show Another
+                            </button>
+                        </div>
+                    </div>
                     <div class="border-l-4 p-6 rounded-lg mb-8 shadow-lg border-cyan-400 bg-[var(--glass-bg)]"><h3 class="text-xl font-bold mb-2">Personalized Threat Analysis</h3><div id="risk-analysis-output" class="text-slate-300"></div></div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <div class="glass-card p-6 rounded-2xl hover:border-cyan-400 transition-all duration-300"><div class="flex items-center mb-4"><div class="p-2 bg-green-500/20 rounded-full mr-4"><i data-feather="check-circle" class="text-green-400"></i></div><h3 class="text-lg font-semibold">Medication Protocols</h3></div><div id="medication-list" class="space-y-2 text-slate-300"></div></div>
@@ -211,7 +97,44 @@
     </footer>
 
     <script>
-        // --- All JS functions remain unchanged as they handle logic, not styling ---
+        // --- CONTENT FOR JOKES AND FACTS ---
+        const funFactsAndJokes = [
+            { type: 'fact', text: "The human brain operates on about 10-12 watts of power, less than a refrigerator light bulb." },
+            { type: 'joke', text: "I told my doctor I broke my arm in two places. He told me to stop going to those places." },
+            { type: 'fact', text: "Historically, the ancient Egyptians were the first to use moldy bread to treat infected wounds - an early form of penicillin!" },
+            { type: 'joke', text: "A patient says, 'Doctor, I have a strawberry stuck up my nose.' The doctor replies, 'Don't worry, I have a cream for that.'" },
+            { type: 'fact', text: "Your stomach's digestive acids are strong enough to dissolve zinc." },
+            { type: 'joke', text: "I have a joke about amnesia, but I forgot how it goes." },
+            { type: 'fact', text: "The first successful blood transfusion was performed in 1665 using blood from a dog." },
+            { type: 'joke', text: "Why did the cookie go to the hospital? Because it felt crummy." },
+            { type: 'fact', text: "Placebos can have a measurable physiological effect. The 'placebo effect' can trigger a release of natural pain-relieving endorphins." },
+            { type: 'joke', text: "Patient: 'Doctor, I get a sharp pain in my eye every time I drink tea.' Doctor: 'Try taking the spoon out of the cup.'" },
+            { type: 'fact', text: "Humans are the only species known to blush." },
+            { type: 'fact', text: "Laughing is good for the heart and can increase blood flow by 20 percent."}
+        ];
+
+        // --- NEW FUNCTION TO DISPLAY JOKE/FACT ---
+        function displayRandomFactOrJoke() {
+            const contentArea = document.getElementById('fact-joke-content');
+            if (!contentArea) return; 
+            
+            const randomIndex = Math.floor(Math.random() * funFactsAndJokes.length);
+            const item = funFactsAndJokes[randomIndex];
+            
+            const header = item.type === 'joke' ? 'A Little Chuckle...' : 'Did You Know?';
+            const icon = item.type === 'joke' ? `<i data-feather="smile" class="w-5 h-5 mr-2 text-fuchsia-400"></i>` : `<i data-feather="book-open" class="w-5 h-5 mr-2 text-cyan-400"></i>`;
+            
+            contentArea.innerHTML = `
+                <div class="flex items-center mb-2">
+                    ${icon}
+                    <h4 class="font-semibold text-slate-200">${header}</h4>
+                </div>
+                <p class="text-slate-300 text-lg">${item.text}</p>
+            `;
+            feather.replace();
+        }
+
+        // --- All other JS functions remain unchanged as they handle logic, not styling ---
         const pages = ['page-auth', 'page-details', 'page-health', 'page-family', 'app-main'];
         const appSections = ['dashboard', 'sandbox', 'profile'];
         const navLinks = document.querySelectorAll('.nav-link');
@@ -250,7 +173,59 @@
             });
         }
         
-        function toggleAuthView(view){const e=document.getElementById("login-view"),t=document.getElementById("signup-view");"signup"===view?(e.style.animation="fadeOutSlideDown 0.5s ease-in-out forwards",setTimeout(()=>{e.classList.add("hidden"),t.classList.remove("hidden"),t.style.animation="fadeInSlideUp 0.5s ease-in-out forwards"},500)):(t.style.animation="fadeOutSlideDown 0.5s ease-in-out forwards",setTimeout(()=>{t.classList.add("hidden"),e.classList.remove("hidden"),e.style.animation="fadeInSlideUp 0.5s ease-in-out forwards"},500)),document.getElementById("login-error").classList.add("hidden"),document.getElementById("signup-error").classList.add("hidden")}const style=document.createElement("style");style.innerHTML="@keyframes fadeOutSlideDown { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(20px); } }",document.head.appendChild(style),navLinks.forEach(e=>{e.addEventListener("click",t=>{t.preventDefault(),navigateToSection(e.getAttribute("href").substring(1))})});function saveData(e,t){const o=localStorage.getItem("currentUserEmail");o&&localStorage.setItem(`${o}_${e}`,JSON.stringify(t))}function loadData(e){const t=localStorage.getItem("currentUserEmail");if(!t)return null;const o=localStorage.getItem(`${t}_${e}`);return o?JSON.parse(o):null}document.getElementById("signup-form").addEventListener("submit",e=>{e.preventDefault();const t=document.getElementById("signup-email").value,o=document.getElementById("signup-password").value,n=JSON.parse(localStorage.getItem("users"))||[];if(n.find(e=>e.email===t)){const e=document.getElementById("signup-error");return e.textContent="An account with this email already exists.",void e.classList.remove("hidden")}n.push({email:t,password:o}),localStorage.setItem("users",JSON.stringify(n)),localStorage.setItem("currentUserEmail",t),switchPage("page-details")}),document.getElementById("login-form").addEventListener("submit",e=>{e.preventDefault();const t=document.getElementById("login-email").value,o=document.getElementById("login-password").value,n=JSON.parse(localStorage.getItem("users"))||[],a=n.find(e=>e.email===t&&e.password===o);a?(localStorage.setItem("currentUserEmail",t),initializeApp()):(document.getElementById("login-error").textContent="Invalid email or password.",document.getElementById("login-error").classList.remove("hidden"))});function handleLogout(){localStorage.removeItem("currentUserEmail"),window.location.reload()}document.getElementById("details-form").addEventListener("submit",e=>{e.preventDefault(),saveData("userData",{name:document.getElementById("name").value,age:document.getElementById("age").value,height:document.getElementById("height").value,weight:document.getElementById("weight").value}),switchPage("page-health")}),document.getElementById("health-form").addEventListener("submit",e=>{e.preventDefault();const t=Array.from(document.querySelectorAll(".condition-entry")).map(e=>({name:e.querySelector(".condition-name").value,medication:e.querySelector(".condition-medication").value}));saveData("healthData",t),switchPage("page-family")}),document.getElementById("family-form").addEventListener("submit",e=>{e.preventDefault();const t=Array.from(document.querySelectorAll(".family-entry")).map(e=>({condition:e.querySelector(".family-condition").value}));saveData("familyData",t),initializeApp()});function addCondition(){const e=document.getElementById("conditions-container"),t=document.createElement("div");t.className="condition-entry mt-4 pt-4 border-t border-[var(--border-color)]",t.innerHTML='<label class="block text-sm font-medium text-slate-400">Another Condition</label><input type="text" placeholder="e.g., Asthma" class="condition-name input-styled" required><input type="text" placeholder="Medication (e.g., Albuterol)" class="condition-medication input-styled mt-2">',e.appendChild(t)}function addFamilyHistory(){const e=document.getElementById("family-history-container"),t=document.createElement("div");t.className="family-entry mt-4 pt-4 border-t border-[var(--border-color)]",t.innerHTML='<label class="block text-sm font-medium text-slate-400">Another Hereditary Condition</label><input type="text" placeholder="e.g., Heart Disease" class="family-condition input-styled" required>',e.appendChild(t)}function initializeApp(){const e=localStorage.getItem("currentUserEmail");if(!e)return void switchPage("page-auth");const t=loadData("userData");t?(populateDashboard(t),populateProfile(),switchPage("app-main"),navigateToSection("dashboard"),feather.replace()):switchPage("page-details")}function populateDashboard(e){document.getElementById("welcome-message").textContent=`Welcome, ${e.name}`;const t=loadData("healthData")||[],o=document.getElementById("medication-list");o.innerHTML="",t.length>0&&t[0].name?t.forEach(e=>{e.medication&&(o.innerHTML+=`<li class="flex items-center"><i data-feather="box" class="w-4 h-4 mr-2 text-slate-400"></i> ${e.medication} <span class="text-xs ml-2 text-slate-500">for ${e.name}</span></li>`)}):o.innerHTML='<p class="text-slate-500">No medication protocols logged.</p>';const n=loadData("familyData")||[],a=document.getElementById("risk-analysis-output");a.innerHTML="",n.length>0&&n[0].condition?a.innerHTML=`<p>Genetic markers indicate a potential predisposition to: <strong>${n.map(e=>e.condition).join(", ")}</strong>. Proactive monitoring is advised.</p>`:a.innerHTML="<p>No specific hereditary risks identified. Maintain standard health protocols.</p>",feather.replace()}function populateProfile(){const e=loadData("userData"),t=loadData("healthData"),o=loadData("familyData"),n=document.getElementById("profile-details"),a=t&&t.length>0&&t[0].name?t.map(e=>`<li><strong>${e.name}</strong> (Protocol: ${e.medication||"None"})</li>`).join(""):`<li>None</li>`,i=o&&o.length>0&&o[0].condition?o.map(e=>`<li>${e.condition}</li>`).join(""):`<li>None</li>`;n.innerHTML=`<p><strong>Alias:</strong> ${e.name}</p><p><strong>Age:</strong> ${e.age}</p><p><strong>Height:</strong> ${e.height} cm</p><p><strong>Weight:</strong> ${e.weight} kg</p><div class="mt-4 pt-4 border-t border-[var(--border-color)]"><h4 class="font-semibold">Logged Conditions:</h4><ul class="list-disc list-inside">${a}</ul></div><div class="mt-4 pt-4 border-t border-[var(--border-color)]"><h4 class="font-semibold">Genetic Markers:</h4><ul class="list-disc list-inside">${i}</ul></div>`}function resetData(){confirm("Are you sure you want to delete all your health data for this account? This cannot be undone.")&&localStorage.getItem("currentUserEmail")&&(localStorage.removeItem(`${localStorage.getItem("currentUserEmail")}_userData`),localStorage.removeItem(`${localStorage.getItem("currentUserEmail")}_healthData`),localStorage.removeItem(`${localStorage.getItem("currentUserEmail")}_familyData`),window.location.reload())}document.addEventListener("DOMContentLoaded",()=>{initializeApp()});
+        function toggleAuthView(view){const e=document.getElementById("login-view"),t=document.getElementById("signup-view");"signup"===view?(e.style.animation="fadeOutSlideDown 0.5s ease-in-out forwards",setTimeout(()=>{e.classList.add("hidden"),t.classList.remove("hidden"),t.style.animation="fadeInSlideUp 0.5s ease-in-out forwards"},500)):(t.style.animation="fadeOutSlideDown 0.5s ease-in-out forwards",setTimeout(()=>{t.classList.add("hidden"),e.classList.remove("hidden"),e.style.animation="fadeInSlideUp 0.5s ease-in-out forwards"},500)),document.getElementById("login-error").classList.add("hidden"),document.getElementById("signup-error").classList.add("hidden")}const style=document.createElement("style");style.innerHTML="@keyframes fadeOutSlideDown { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(20px); } }",document.head.appendChild(style),navLinks.forEach(e=>{e.addEventListener("click",t=>{t.preventDefault(),navigateToSection(e.getAttribute("href").substring(1))})});function saveData(e,t){const o=localStorage.getItem("currentUserEmail");o&&localStorage.setItem(`${o}_${e}`,JSON.stringify(t))}function loadData(e){const t=localStorage.getItem("currentUserEmail");if(!t)return null;const o=localStorage.getItem(`${t}_${e}`);return o?JSON.parse(o):null}document.getElementById("signup-form").addEventListener("submit",e=>{e.preventDefault();const t=document.getElementById("signup-email").value,o=document.getElementById("signup-password").value,n=JSON.parse(localStorage.getItem("users"))||[];if(n.find(e=>e.email===t)){const e=document.getElementById("signup-error");return e.textContent="An account with this email already exists.",void e.classList.remove("hidden")}n.push({email:t,password:o}),localStorage.setItem("users",JSON.stringify(n)),localStorage.setItem("currentUserEmail",t),switchPage("page-details")}),document.getElementById("login-form").addEventListener("submit",e=>{e.preventDefault();const t=document.getElementById("login-email").value,o=document.getElementById("login-password").value,n=JSON.parse(localStorage.getItem("users"))||[],a=n.find(e=>e.email===t&&e.password===o);a?(localStorage.setItem("currentUserEmail",t),initializeApp()):(document.getElementById("login-error").textContent="Invalid email or password.",document.getElementById("login-error").classList.remove("hidden"))});function handleLogout(){localStorage.removeItem("currentUserEmail"),window.location.reload()}document.getElementById("details-form").addEventListener("submit",e=>{e.preventDefault(),saveData("userData",{name:document.getElementById("name").value,age:document.getElementById("age").value,height:document.getElementById("height").value,weight:document.getElementById("weight").value}),switchPage("page-health")}),document.getElementById("health-form").addEventListener("submit",e=>{e.preventDefault();const t=Array.from(document.querySelectorAll(".condition-entry")).map(e=>({name:e.querySelector(".condition-name").value,medication:e.querySelector(".condition-medication").value}));saveData("healthData",t),switchPage("page-family")}),document.getElementById("family-form").addEventListener("submit",e=>{e.preventDefault();const t=Array.from(document.querySelectorAll(".family-entry")).map(e=>({condition:e.querySelector(".family-condition").value}));saveData("familyData",t),initializeApp()});function addCondition(){const e=document.getElementById("conditions-container"),t=document.createElement("div");t.className="condition-entry mt-4 pt-4 border-t border-[var(--border-color)]",t.innerHTML='<label class="block text-sm font-medium text-slate-400">Another Condition</label><input type="text" placeholder="e.g., Asthma" class="condition-name input-styled" required><input type="text" placeholder="Medication (e.g., Albuterol)" class="condition-medication input-styled mt-2">',e.appendChild(t)}function addFamilyHistory(){const e=document.getElementById("family-history-container"),t=document.createElement("div");t.className="family-entry mt-4 pt-4 border-t border-[var(--border-color)]",t.innerHTML='<label class="block text-sm font-medium text-slate-400">Another Hereditary Condition</label><input type="text" placeholder="e.g., Heart Disease" class="family-condition input-styled" required>',e.appendChild(t)}
+        
+        function initializeApp(){
+            const currentUser = localStorage.getItem("currentUserEmail");
+            if (!currentUser) return void switchPage("page-auth");
+            
+            const userData = loadData("userData");
+            if (userData) {
+                populateDashboard(userData);
+                populateProfile();
+                switchPage("app-main");
+                navigateToSection("dashboard");
+            } else {
+                switchPage("page-details");
+            }
+        }
+
+        function populateDashboard(userData) {
+            document.getElementById("welcome-message").textContent = `Welcome, ${userData.name}`;
+            const healthData = loadData("healthData") || [];
+            const medicationList = document.getElementById("medication-list");
+            medicationList.innerHTML = "";
+            if (healthData.length > 0 && healthData[0].name) {
+                healthData.forEach(item => {
+                    if (item.medication) {
+                        medicationList.innerHTML += `<li class="flex items-center"><i data-feather="box" class="w-4 h-4 mr-2 text-slate-400"></i> ${item.medication} <span class="text-xs ml-2 text-slate-500">for ${item.name}</span></li>`;
+                    }
+                });
+            } else {
+                medicationList.innerHTML = '<p class="text-slate-500">No medication protocols logged.</p>';
+            }
+            
+            const familyData = loadData("familyData") || [];
+            const riskOutput = document.getElementById("risk-analysis-output");
+            riskOutput.innerHTML = "";
+            if (familyData.length > 0 && familyData[0].condition) {
+                riskOutput.innerHTML = `<p>Genetic markers indicate a potential predisposition to: <strong>${familyData.map(item => item.condition).join(", ")}</strong>. Proactive monitoring is advised.</p>`;
+            } else {
+                riskOutput.innerHTML = "<p>No specific hereditary risks identified. Maintain standard health protocols.</p>";
+            }
+
+            // --- CALL THE NEW FUNCTION WHEN DASHBOARD LOADS ---
+            displayRandomFactOrJoke();
+            
+            feather.replace();
+        }
+
+        function populateProfile(){const e=loadData("userData"),t=loadData("healthData"),o=loadData("familyData"),n=document.getElementById("profile-details"),a=t&&t.length>0&&t[0].name?t.map(e=>`<li><strong>${e.name}</strong> (Protocol: ${e.medication||"None"})</li>`).join(""):`<li>None</li>`,i=o&&o.length>0&&o[0].condition?o.map(e=>`<li>${e.condition}</li>`).join(""):`<li>None</li>`;n.innerHTML=`<p><strong>Alias:</strong> ${e.name}</p><p><strong>Age:</strong> ${e.age}</p><p><strong>Height:</strong> ${e.height} cm</p><p><strong>Weight:</strong> ${e.weight} kg</p><div class="mt-4 pt-4 border-t border-[var(--border-color)]"><h4 class="font-semibold">Logged Conditions:</h4><ul class="list-disc list-inside">${a}</ul></div><div class="mt-4 pt-4 border-t border-[var(--border-color)]"><h4 class="font-semibold">Genetic Markers:</h4><ul class="list-disc list-inside">${i}</ul></div>`}
+        function resetData(){confirm("Are you sure you want to delete all your health data for this account? This cannot be undone.")&&localStorage.getItem("currentUserEmail")&&(localStorage.removeItem(`${localStorage.getItem("currentUserEmail")}_userData`),localStorage.removeItem(`${localStorage.getItem("currentUserEmail")}_healthData`),localStorage.removeItem(`${localStorage.getItem("currentUserEmail")}_familyData`),window.location.reload())}
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            initializeApp();
+        });
     </script>
 </body>
 </html>
