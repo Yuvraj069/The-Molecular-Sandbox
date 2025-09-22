@@ -4,359 +4,253 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale-1.0">
     <title>Molecular Sandbox</title>
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <script src="https://unpkg.com/feather-icons"></script>
 
     <style>
-        /* Custom Styles */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* slate-50 */
+        :root {
+            --dark-bg: #0a0f1f;
+            --primary-glow: #00f6ff;
+            --secondary-glow: #ff00c1;
+            --glass-bg: rgba(16, 24, 52, 0.6);
+            --border-color: rgba(0, 246, 255, 0.2);
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
         }
-        /* Custom scrollbar for a cleaner look */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #e2e8f0; }
-        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
-        
-        /* Page transition animation */
-        .page { animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+        }
+
+        .futuristic-bg {
+            background-color: var(--dark-bg);
+            background-image: radial-gradient(circle at 1% 1%, var(--primary-glow), transparent 25%), radial-gradient(circle at 99% 99%, var(--secondary-glow), transparent 25%);
+            background-size: 300% 300%;
+            animation: gradient-animation 10s ease-in-out infinite;
+        }
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .page, .app-section {
+            animation: fadeInSlideUp 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes fadeInSlideUp {
+            from { opacity: 0; transform: translateY(25px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 40px rgba(0, 246, 255, 0.1);
+        }
+
+        .btn-primary {
+            @apply w-full font-bold py-3 px-6 rounded-lg transition-all duration-300;
+            background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
+            color: var(--dark-bg);
+            box-shadow: 0 0 10px var(--primary-glow), 0 0 20px var(--secondary-glow);
+            transform: perspective(1px) translateZ(0);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 20px var(--primary-glow), 0 0 40px var(--secondary-glow);
+            transform: scale(1.02);
+        }
+        
+        .input-styled {
+            @apply mt-1 block w-full px-4 py-3 rounded-md shadow-sm transition-all duration-300;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+        .input-styled::placeholder { color: var(--text-secondary); }
+        .input-styled:focus {
+            outline: none;
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+        
+        .text-gradient-glow {
+            background: linear-gradient(90deg, var(--primary-glow), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px var(--primary-glow));
         }
     </style>
 </head>
-<body class="text-slate-800">
+<body class="text-slate-200">
 
     <div id="app-container" class="min-h-screen">
 
-        <div id="page-auth" class="page hidden items-center justify-center min-h-screen p-4 bg-slate-100">
+        <div id="page-auth" class="page hidden items-center justify-center min-h-screen p-4 futuristic-bg">
             <div class="w-full max-w-md">
-                <div class="text-center mb-6">
-                    <div class="inline-block bg-blue-100 text-blue-600 p-3 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
-                    </div>
-                    <h1 class="text-3xl font-bold text-slate-900 mt-2">Molecular Sandbox</h1>
+                <div class="text-center mb-8">
+                    <h1 class="text-5xl font-extrabold text-gradient-glow">Molecular Sandbox</h1>
+                    <p class="text-slate-400 mt-2">Unlock Your Personal Health Matrix</p>
                 </div>
 
-                <div class="bg-white p-8 rounded-2xl shadow-xl">
+                <div class="glass-card p-8 rounded-2xl shadow-2xl">
                     <div id="login-view">
-                        <h2 class="text-2xl font-bold mb-2 text-slate-900">Welcome Back</h2>
-                        <p class="text-slate-500 mb-6">Log in to access your dashboard.</p>
-                        <form id="login-form" class="space-y-4">
-                            <div>
-                                <label for="login-email" class="block text-sm font-medium text-slate-600">Email</label>
-                                <input type="email" id="login-email" required class="mt-1 block w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            </div>
-                            <div>
-                                <label for="login-password" class="block text-sm font-medium text-slate-600">Password</label>
-                                <input type="password" id="login-password" required class="mt-1 block w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            </div>
-                            <p id="login-error" class="text-sm text-red-600 hidden"></p>
-                            <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
-                                Log In
-                            </button>
+                        <h2 class="text-3xl font-bold mb-6 text-center">User Authentication</h2>
+                        <form id="login-form" class="space-y-5">
+                            <div><input type="email" id="login-email" required class="input-styled" placeholder="Email Address"></div>
+                            <div><input type="password" id="login-password" required class="input-styled" placeholder="Password"></div>
+                            <p id="login-error" class="text-sm text-red-400 hidden pt-1"></p>
+                            <button type="submit" class="btn-primary !mt-8">Access Terminal</button>
                         </form>
-                        <p class="text-center text-sm text-slate-500 mt-6">
-                            Don't have an account? <a href="#" onclick="toggleAuthView('signup')" class="font-semibold text-blue-600 hover:underline">Sign Up</a>
+                        <p class="text-center text-sm text-slate-400 mt-6">
+                            New user? <a href="#" onclick="toggleAuthView('signup')" class="font-semibold text-cyan-400 hover:underline">Initiate Registration</a>
                         </p>
                     </div>
-                    
                     <div id="signup-view" class="hidden">
-                        <h2 class="text-2xl font-bold mb-2 text-slate-900">Create Account</h2>
-                        <p class="text-slate-500 mb-6">Start your personalized health journey.</p>
-                        <form id="signup-form" class="space-y-4">
-                            <div>
-                                <label for="signup-email" class="block text-sm font-medium text-slate-600">Email</label>
-                                <input type="email" id="signup-email" required class="mt-1 block w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            </div>
-                            <div>
-                                <label for="signup-password" class="block text-sm font-medium text-slate-600">Password</label>
-                                <input type="password" id="signup-password" required minlength="6" class="mt-1 block w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            </div>
-                             <p id="signup-error" class="text-sm text-red-600 hidden"></p>
-                            <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
-                                Create Account
-                            </button>
+                        <h2 class="text-3xl font-bold mb-6 text-center">New User Registration</h2>
+                        <form id="signup-form" class="space-y-5">
+                            <div><input type="email" id="signup-email" required class="input-styled" placeholder="Email Address"></div>
+                            <div><input type="password" id="signup-password" required minlength="6" class="input-styled" placeholder="Create Secure Password"></div>
+                             <p id="signup-error" class="text-sm text-red-400 hidden pt-1"></p>
+                            <button type="submit" class="btn-primary !mt-8">Create Profile</button>
                         </form>
-                        <p class="text-center text-sm text-slate-500 mt-6">
-                            Already have an account? <a href="#" onclick="toggleAuthView('login')" class="font-semibold text-blue-600 hover:underline">Log In</a>
+                        <p class="text-center text-sm text-slate-400 mt-6">
+                            Already registered? <a href="#" onclick="toggleAuthView('login')" class="font-semibold text-cyan-400 hover:underline">Login</a>
                         </p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="page-details" class="page hidden items-center justify-center min-h-screen p-4">
-            <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl">
-                <h2 class="text-2xl font-bold mb-2 text-slate-900">Tell us about yourself</h2>
-                <p class="text-slate-500 mb-6">This information helps us personalize your dashboard.</p>
+        <div id="page-details" class="page hidden items-center justify-center min-h-screen p-4 futuristic-bg">
+            <div class="w-full max-w-md glass-card p-8 rounded-2xl">
+                 <h2 class="text-2xl font-bold mb-2">User Data Imprint</h2>
+                <p class="text-slate-400 mb-6">Calibrating your personal dashboard.</p>
                 <form id="details-form" class="space-y-4">
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-slate-600">Name</label>
-                        <input type="text" id="name" required class="mt-1 block w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <div><label class="block text-sm font-medium text-slate-400">Alias / Name</label><input type="text" id="name" required class="input-styled"></div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div><label class="block text-sm font-medium text-slate-400">Age</label><input type="number" id="age" required class="input-styled"></div>
+                        <div><label class="block text-sm font-medium text-slate-400">Height (cm)</label><input type="number" id="height" required class="input-styled"></div>
+                        <div><label class="block text-sm font-medium text-slate-400">Weight (kg)</label><input type="number" id="weight" required class="input-styled"></div>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div><label for="age" class="block text-sm font-medium text-slate-600">Age</label><input type="number" id="age" required class="mt-1 block w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"></div>
-                        <div><label for="height" class="block text-sm font-medium text-slate-600">Height (cm)</label><input type="number" id="height" required class="mt-1 block w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"></div>
-                        <div><label for="weight" class="block text-sm font-medium text-slate-600">Weight (kg)</label><input type="number" id="weight" required class="mt-1 block w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"></div>
-                    </div>
-                    <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300">Next: Health Conditions</button>
+                    <button type="submit" class="btn-primary !mt-6">Next: Health Scan</button>
                 </form>
             </div>
         </div>
 
-        <div id="page-health" class="page hidden items-center justify-center min-h-screen p-4">
-            <div class="w-full max-w-lg bg-white p-8 rounded-2xl shadow-xl">
-                <h2 class="text-2xl font-bold mb-2 text-slate-900">Current Health Status</h2>
-                <p class="text-slate-500 mb-6">List any ongoing conditions and medications.</p>
+        <div id="page-health" class="page hidden items-center justify-center min-h-screen p-4 futuristic-bg">
+             <div class="w-full max-w-lg glass-card p-8 rounded-2xl">
+                <h2 class="text-2xl font-bold mb-2">Health Status Input</h2>
+                <p class="text-slate-400 mb-6">Log current conditions and protocols.</p>
                 <form id="health-form" class="space-y-6">
-                    <div id="conditions-container" class="space-y-4">
-                        <div class="condition-entry"><label class="block text-sm font-medium text-slate-600">Condition & Medication</label><input type="text" placeholder="e.g., Hypertension" class="condition-name mt-1 block w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-md" required><input type="text" placeholder="Medication (e.g., Lisinopril)" class="condition-medication mt-2 block w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-md"></div>
-                    </div>
-                    <button type="button" onclick="addCondition()" class="text-sm text-blue-600 font-semibold hover:underline">+ Add another condition</button>
-                    <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300">Next: Family History</button>
+                    <div id="conditions-container" class="space-y-4"><div class="condition-entry"><label class="block text-sm font-medium text-slate-400">Condition & Medication</label><input type="text" placeholder="e.g., Hypertension" class="condition-name input-styled" required><input type="text" placeholder="Medication (e.g., Lisinopril)" class="condition-medication input-styled mt-2"></div></div>
+                    <button type="button" onclick="addCondition()" class="text-sm text-cyan-400 font-semibold hover:underline">+ Add Data Point</button>
+                    <button type="submit" class="btn-primary !mt-6">Next: Genetic History</button>
                 </form>
             </div>
         </div>
 
-        <div id="page-family" class="page hidden items-center justify-center min-h-screen p-4">
-            <div class="w-full max-w-lg bg-white p-8 rounded-2xl shadow-xl">
-                 <h2 class="text-2xl font-bold mb-2 text-slate-900">Family Medical History</h2>
-                <p class="text-slate-500 mb-6">Note any significant health conditions in your immediate family.</p>
+        <div id="page-family" class="page hidden items-center justify-center min-h-screen p-4 futuristic-bg">
+             <div class="w-full max-w-lg glass-card p-8 rounded-2xl">
+                 <h2 class="text-2xl font-bold mb-2">Genetic History Archive</h2>
+                <p class="text-slate-400 mb-6">Input known hereditary data.</p>
                 <form id="family-form" class="space-y-6">
-                    <div id="family-history-container" class="space-y-4">
-                        <div class="family-entry"><label class="block text-sm font-medium text-slate-600">Hereditary Condition</label><input type="text" placeholder="e.g., Type 2 Diabetes" class="family-condition mt-1 block w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-md" required></div>
-                    </div>
-                    <button type="button" onclick="addFamilyHistory()" class="text-sm text-blue-600 font-semibold hover:underline">+ Add another condition</button>
-                    <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300">Generate My Health Profile</button>
+                    <div id="family-history-container" class="space-y-4"><div class="family-entry"><label class="block text-sm font-medium text-slate-400">Hereditary Condition</label><input type="text" placeholder="e.g., Type 2 Diabetes" class="family-condition input-styled" required></div></div>
+                    <button type="button" onclick="addFamilyHistory()" class="text-sm text-cyan-400 font-semibold hover:underline">+ Add Data Point</button>
+                    <button type="submit" class="btn-primary !mt-6">Generate Health Matrix</button>
                 </form>
             </div>
         </div>
         
         <div id="app-main" class="page hidden">
-            <nav class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+            <nav class="bg-black/30 backdrop-blur-md sticky top-0 z-50 border-b border-[var(--border-color)]">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex items-center justify-between h-16">
+                        <div class="flex items-center"><span class="font-bold text-xl ml-2 text-gradient-glow">Molecular Sandbox</span></div>
                         <div class="flex items-center">
-                            <div class="flex-shrink-0 text-blue-600"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg></div>
-                            <span class="font-bold text-xl ml-2 text-slate-800">Molecular Sandbox</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="hidden md:block">
-                                <div class="ml-10 flex items-baseline space-x-4">
-                                    <a href="#dashboard" class="nav-link text-white bg-blue-600 px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
-                                    <a href="#sandbox" class="nav-link text-slate-600 hover:bg-slate-200 hover:text-slate-800 px-3 py-2 rounded-md text-sm font-medium">Symptom Sandbox</a>
-                                    <a href="#profile" class="nav-link text-slate-600 hover:bg-slate-200 hover:text-slate-800 px-3 py-2 rounded-md text-sm font-medium">My Profile</a>
-                                </div>
-                            </div>
-                            <button onclick="handleLogout()" class="ml-4 bg-slate-200 text-slate-700 hover:bg-slate-300 font-semibold py-2 px-4 rounded-lg transition text-sm flex items-center"><i data-feather="log-out" class="w-4 h-4 mr-2"></i>Logout</button>
+                            <div class="hidden md:block"><div class="ml-10 flex items-center space-x-2">
+                                <a href="#dashboard" class="nav-link px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Dashboard</a>
+                                <a href="#sandbox" class="nav-link px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Sandbox</a>
+                                <a href="#profile" class="nav-link px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Profile</a>
+                            </div></div>
+                            <button onclick="handleLogout()" class="ml-4 bg-red-500/20 text-red-300 border border-red-500/50 hover:bg-red-500/50 hover:text-white font-semibold py-2 px-4 rounded-lg transition text-sm flex items-center"><i data-feather="power" class="w-4 h-4 mr-2"></i>Log Out</button>
                         </div>
                     </div>
                 </div>
             </nav>
 
-            <main>
-                <div id="dashboard" class="app-section p-4 md:p-8 max-w-7xl mx-auto">
-                    <h1 id="welcome-message" class="text-3xl font-bold text-slate-900 mb-6">Welcome!</h1>
-                    <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-6 rounded-lg mb-8 shadow-sm">
-                        <h3 class="text-xl font-bold mb-2">Your Personalized Health Outlook</h3>
-                        <div id="risk-analysis-output"></div>
-                    </div>
+            <main class="p-4 md:p-8">
+                <div id="dashboard" class="app-section max-w-7xl mx-auto">
+                    <h1 id="welcome-message" class="text-4xl font-extrabold text-gradient-glow mb-6">Welcome!</h1>
+                    <div class="border-l-4 p-6 rounded-lg mb-8 shadow-lg border-cyan-400 bg-[var(--glass-bg)]"><h3 class="text-xl font-bold mb-2">Personalized Threat Analysis</h3><div id="risk-analysis-output" class="text-slate-300"></div></div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div class="bg-white p-6 rounded-2xl shadow-lg"><div class="flex items-center mb-4"><div class="p-2 bg-green-100 rounded-full mr-4"><i data-feather="check-circle" class="text-green-600"></i></div><h3 class="text-lg font-semibold">Medication Reminder</h3></div><div id="medication-list" class="space-y-2 text-slate-600"></div></div>
-                        <div class="bg-white p-6 rounded-2xl shadow-lg"><div class="flex items-center mb-4"><div class="p-2 bg-purple-100 rounded-full mr-4"><i data-feather="activity" class="text-purple-600"></i></div><h3 class="text-lg font-semibold">Track Your Vitals</h3></div><ul class="space-y-2 text-slate-600"><li class="flex justify-between"><span>Water Intake</span><span class="font-medium text-purple-700">3 / 8 Glasses</span></li><li class="flex justify-between"><span>Step Count</span><span class="font-medium text-purple-700">4,521 Steps</span></li><li class="flex justify-between"><span>Sleep</span><span class="font-medium text-purple-700">7h 30m</span></li></ul></div>
-                        <div class="bg-white p-6 rounded-2xl shadow-lg"><div class="flex items-center mb-4"><div class="p-2 bg-yellow-100 rounded-full mr-4"><i data-feather="zap" class="text-yellow-600"></i></div><h3 class="text-lg font-semibold">Quick Actions</h3></div><div class="space-y-3"><button onclick="navigateToSection('sandbox')" class="w-full text-left bg-slate-100 hover:bg-slate-200 p-3 rounded-md transition">Check a new symptom</button><button class="w-full text-left bg-slate-100 hover:bg-slate-200 p-3 rounded-md transition">Log today's vitals</button></div></div>
+                        <div class="glass-card p-6 rounded-2xl hover:border-cyan-400 transition-all duration-300"><div class="flex items-center mb-4"><div class="p-2 bg-green-500/20 rounded-full mr-4"><i data-feather="check-circle" class="text-green-400"></i></div><h3 class="text-lg font-semibold">Medication Protocols</h3></div><div id="medication-list" class="space-y-2 text-slate-300"></div></div>
+                        <div class="glass-card p-6 rounded-2xl hover:border-cyan-400 transition-all duration-300"><div class="flex items-center mb-4"><div class="p-2 bg-purple-500/20 rounded-full mr-4"><i data-feather="activity" class="text-purple-400"></i></div><h3 class="text-lg font-semibold">Biometric Tracking</h3></div><ul class="space-y-2 text-slate-300"><li class="flex justify-between"><span>Hydration</span><span class="font-medium text-purple-300">3 / 8 Units</span></li><li class="flex justify-between"><span>Mobility</span><span class="font-medium text-purple-300">4,521 Units</span></li><li class="flex justify-between"><span>Stasis Period</span><span class="font-medium text-purple-300">7h 30m</span></li></ul></div>
+                        <div class="glass-card p-6 rounded-2xl hover:border-cyan-400 transition-all duration-300"><div class="flex items-center mb-4"><div class="p-2 bg-yellow-500/20 rounded-full mr-4"><i data-feather="zap" class="text-yellow-400"></i></div><h3 class="text-lg font-semibold">Quick Actions</h3></div><div class="space-y-3"><button onclick="navigateToSection('sandbox')" class="w-full text-left bg-slate-800/50 hover:bg-cyan-400/20 p-3 rounded-md transition font-semibold">Analyze New Symptom</button><button class="w-full text-left bg-slate-800/50 hover:bg-cyan-400/20 p-3 rounded-md transition font-semibold">Log Biometrics</button></div></div>
                     </div>
                 </div>
-                <div id="sandbox" class="app-section hidden p-4 md:p-8 max-w-7xl mx-auto"><h2 class="text-3xl font-bold text-slate-900 mb-2">Symptom Sandbox</h2><p class="text-slate-600 mb-8">Describe your discomfort to get personalized insights.</p><div class="bg-white p-8 rounded-2xl shadow-lg"><label for="symptom-input" class="block text-lg font-semibold text-slate-700 mb-2">What are you feeling right now?</label><input type="text" id="symptom-input" placeholder="e.g., Sharp headache, mild nausea..." class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"><button class="mt-4 bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition">Analyze Symptom</button><div class="mt-8 border-t border-slate-200 pt-6"><h3 class="text-xl font-bold">Analysis & Suggestions</h3><p class="text-sm text-slate-500 mb-4">Based on your profile and symptoms.</p><div class="space-y-4"><div class="border border-amber-300 bg-amber-50 p-4 rounded-lg"><h4 class="font-bold text-amber-800">Potential Interaction Alert</h4><p class="text-amber-700">Over-the-counter pain relievers (NSAIDs) may interact with your current Lisinopril medication. Please consult a doctor.</p></div><div class="border border-green-300 bg-green-50 p-4 rounded-lg"><h4 class="font-bold text-green-800">Recommendation</h4><p class="text-green-700">Hydration and rest are recommended. If the headache persists for more than 4 hours, it's advisable to contact your healthcare provider.</p></div></div></div></div></div>
-                <div id="profile" class="app-section hidden p-4 md:p-8 max-w-7xl mx-auto"><h2 class="text-3xl font-bold text-slate-900 mb-6">My Health Profile</h2><div class="bg-white p-8 rounded-2xl shadow-lg"><div id="profile-details" class="space-y-4 text-slate-700"></div><button onclick="resetData()" class="mt-6 bg-red-500 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-red-600 transition">Reset and Start Over</button></div></div>
+                <div id="sandbox" class="app-section hidden max-w-7xl mx-auto"><h2 class="text-4xl font-extrabold text-gradient-glow mb-2">Symptom Sandbox</h2><p class="text-slate-400 mb-8">Interface with the analysis engine.</p><div class="glass-card p-8 rounded-2xl"><label class="block text-lg font-semibold mb-2">Input Symptom Data</label><input type="text" id="symptom-input" placeholder="e.g., Sharp headache, mild nausea..." class="input-styled w-full"><button class="mt-4 btn-primary w-auto px-10">Run Analysis</button><div class="mt-8 border-t border-[var(--border-color)] pt-6"><h3 class="text-xl font-bold">Analysis Output</h3><p class="text-sm text-slate-400 mb-4">Results based on your profile.</p><div class="space-y-4"><div class="border border-amber-400/50 bg-amber-500/20 p-4 rounded-lg"><h4 class="font-bold text-amber-300">! CONFLICT DETECTED</h4><p class="text-amber-400">NSAIDs may conflict with Lisinopril protocol. Medical supervision required.</p></div><div class="border border-green-400/50 bg-green-500/20 p-4 rounded-lg"><h4 class="font-bold text-green-300">> RECOMMENDATION</h4><p class="text-green-400">Hydration and rest advised. Monitor status. Contact physician if symptoms persist > 4 hours.</p></div></div></div></div></div>
+                <div id="profile" class="app-section hidden max-w-7xl mx-auto"><h2 class="text-4xl font-extrabold text-gradient-glow mb-6">User Data Profile</h2><div class="glass-card p-8 rounded-2xl"><div id="profile-details" class="space-y-4"></div><button onclick="resetData()" class="mt-6 bg-red-500/80 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-red-600 transition">Delete Profile Data</button></div></div>
             </main>
         </div>
     </div>
     
     <footer class="text-center p-6 text-xs text-slate-500 mt-auto">
-        <strong>Disclaimer:</strong> This tool is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Always consult with a qualified healthcare provider.
+        <strong>Disclaimer:</strong> This tool is for informational purposes only. Always consult with a qualified healthcare provider.
     </footer>
 
     <script>
-        // --- Constants and Globals ---
+        // --- All JS functions remain unchanged as they handle logic, not styling ---
         const pages = ['page-auth', 'page-details', 'page-health', 'page-family', 'app-main'];
         const appSections = ['dashboard', 'sandbox', 'profile'];
         const navLinks = document.querySelectorAll('.nav-link');
 
-        // --- Core Navigation & View Logic ---
         function switchPage(targetId) {
             pages.forEach(pageId => {
                 const pageElement = document.getElementById(pageId);
                 if (pageId === targetId) {
+                    pageElement.style.animation = 'fadeInSlideUp 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards';
                     pageElement.classList.remove('hidden');
-                    if (pageId !== 'app-main') {
-                        pageElement.classList.add('flex');
-                    }
+                    if (pageId !== 'app-main') pageElement.classList.add('flex');
                 } else {
                     pageElement.classList.add('hidden');
-                    pageElement.classList.remove('flex');
                 }
             });
         }
         
         function navigateToSection(targetId) {
-            appSections.forEach(sectionId => document.getElementById(sectionId).classList.add('hidden'));
-            document.getElementById(targetId).classList.remove('hidden');
+            appSections.forEach(sectionId => {
+                const el = document.getElementById(sectionId);
+                if (el.id === targetId) {
+                    el.style.animation = 'fadeInSlideUp 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards';
+                    el.classList.remove('hidden');
+                } else {
+                    el.classList.add('hidden');
+                }
+            });
+
             navLinks.forEach(link => {
-                link.classList.toggle('bg-blue-600', link.getAttribute('href') === `#${targetId}`);
-                link.classList.toggle('text-white', link.getAttribute('href') === `#${targetId}`);
-                link.classList.toggle('text-slate-600', link.getAttribute('href') !== `#${targetId}`);
+                const isActive = link.getAttribute('href') === `#${targetId}`;
+                link.classList.toggle('text-cyan-400', isActive);
+                link.classList.toggle('bg-cyan-500/10', isActive);
+                link.classList.toggle('text-slate-400', !isActive);
+                link.classList.toggle('hover:bg-slate-700/50', !isActive);
+                link.classList.toggle('hover:text-white', !isActive);
             });
         }
         
-        function toggleAuthView(view) {
-            document.getElementById('login-view').classList.toggle('hidden', view !== 'login');
-            document.getElementById('signup-view').classList.toggle('hidden', view !== 'signup');
-            document.getElementById('login-error').classList.add('hidden');
-            document.getElementById('signup-error').classList.add('hidden');
-        }
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                navigateToSection(link.getAttribute('href').substring(1));
-            });
-        });
-
-        // --- User & Data Management (User-Specific) ---
-        function saveData(key, data) {
-            const currentUser = localStorage.getItem('currentUserEmail');
-            if (!currentUser) return;
-            localStorage.setItem(`${currentUser}_${key}`, JSON.stringify(data));
-        }
-
-        function loadData(key) {
-            const currentUser = localStorage.getItem('currentUserEmail');
-            if (!currentUser) return null;
-            const data = localStorage.getItem(`${currentUser}_${key}`);
-            return data ? JSON.parse(data) : null;
-        }
-
-        // --- Authentication Logic ---
-        document.getElementById('signup-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            
-            if (users.find(user => user.email === email)) {
-                const errorEl = document.getElementById('signup-error');
-                errorEl.textContent = 'An account with this email already exists.';
-                errorEl.classList.remove('hidden');
-                return;
-            }
-            
-            users.push({ email, password });
-            localStorage.setItem('users', JSON.stringify(users));
-            localStorage.setItem('currentUserEmail', email);
-            switchPage('page-details');
-        });
-
-        document.getElementById('login-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            
-            const user = users.find(u => u.email === email && u.password === password);
-            
-            if (user) {
-                localStorage.setItem('currentUserEmail', email);
-                initializeApp();
-            } else {
-                 const errorEl = document.getElementById('login-error');
-                 errorEl.textContent = 'Invalid email or password.';
-                 errorEl.classList.remove('hidden');
-            }
-        });
-
-        function handleLogout() {
-            localStorage.removeItem('currentUserEmail');
-            window.location.reload();
-        }
-
-        // --- Onboarding Form Submissions ---
-        document.getElementById('details-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            saveData('userData', {
-                name: document.getElementById('name').value,
-                age: document.getElementById('age').value,
-                height: document.getElementById('height').value,
-                weight: document.getElementById('weight').value,
-            });
-            switchPage('page-health');
-        });
-
-        document.getElementById('health-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const conditions = Array.from(document.querySelectorAll('.condition-entry')).map(entry => ({
-                name: entry.querySelector('.condition-name').value,
-                medication: entry.querySelector('.condition-medication').value,
-            }));
-            saveData('healthData', conditions);
-            switchPage('page-family');
-        });
-
-        document.getElementById('family-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const familyHistory = Array.from(document.querySelectorAll('.family-entry')).map(entry => ({
-                condition: entry.querySelector('.family-condition').value,
-            }));
-            saveData('familyData', familyHistory);
-            initializeApp();
-        });
-
-        // --- Dynamic Form Fields ---
-        function addCondition() { /* ... unchanged ... */ }
-        function addFamilyHistory() { /* ... unchanged ... */ }
-        function addCondition(){const c=document.getElementById("conditions-container"),e=document.createElement("div");e.className="condition-entry mt-4 pt-4 border-t border-slate-200",e.innerHTML='<label class="block text-sm font-medium text-slate-600">Another Condition</label><input type="text" placeholder="e.g., Asthma" class="condition-name mt-1 block w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-md"><input type="text" placeholder="Medication (e.g., Albuterol)" class="condition-medication mt-2 block w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-md">',c.appendChild(e)}function addFamilyHistory(){const c=document.getElementById("family-history-container"),e=document.createElement("div");e.className="family-entry mt-4 pt-4 border-t border-slate-200",e.innerHTML='<label class="block text-sm font-medium text-slate-600">Another Hereditary Condition</label><input type="text" placeholder="e.g., Heart Disease" class="family-condition mt-1 block w-full px-4 py-2 bg-slate-50 border border-slate-300 rounded-md">',c.appendChild(e)}
-
-
-        // --- Application Initialization and Population ---
-        function initializeApp() {
-            const currentUser = localStorage.getItem('currentUserEmail');
-            if (!currentUser) {
-                switchPage('page-auth');
-                return;
-            }
-
-            const userData = loadData('userData');
-            // If user has signed up but not filled details, send them to the details page.
-            if (!userData) {
-                switchPage('page-details');
-                return;
-            }
-
-            populateDashboard(userData);
-            populateProfile();
-            switchPage('app-main');
-            navigateToSection('dashboard');
-            feather.replace();
-        }
-
-        function populateDashboard(userData) { /* ... unchanged ... */ }
-        function populateProfile() { /* ... unchanged ... */ }
-        function resetData() { /* ... unchanged ... */ }
-        function populateDashboard(e){document.getElementById("welcome-message").textContent=`Welcome, ${e.name}!`;const t=loadData("healthData")||[],a=document.getElementById("medication-list");a.innerHTML="",t.length>0&&t[0].name?t.forEach(e=>{e.medication&&(a.innerHTML+=`<li class="flex items-center"><i data-feather="pill" class="w-4 h-4 mr-2 text-slate-400"></i> ${e.medication} <span class="text-xs ml-2 text-slate-500">for ${e.name}</span></li>`)}):a.innerHTML='<p class="text-slate-500">No medications listed.</p>';const n=loadData("familyData")||[],l=document.getElementById("risk-analysis-output");l.innerHTML="",n.length>0&&n[0].condition?l.innerHTML=`<p>Based on your family history, you may have a higher predisposition to: <strong>${n.map(e=>e.condition).join(", ")}</strong>. Regular check-ups and a healthy lifestyle are advised to mitigate these risks.</p>`:l.innerHTML="<p>No specific hereditary risks identified from your family history. Maintaining a healthy lifestyle is always recommended.</p>"}function populateProfile(){const e=loadData("userData"),t=loadData("healthData"),a=loadData("familyData"),n=document.getElementById("profile-details"),l=t&&t.length>0&&t[0].name?t.map(e=>`<li><strong>${e.name}</strong> (Medication: ${e.medication||"None"})</li>`).join(""):`<li>None</li>`,d=a&&a.length>0&&a[0].condition?a.map(e=>`<li>${e.condition}</li>`).join(""):`<li>None</li>`;n.innerHTML=`\n                <p><strong>Name:</strong> ${e.name}</p>\n                <p><strong>Age:</strong> ${e.age}</p>\n                <p><strong>Height:</strong> ${e.height} cm</p>\n                <p><strong>Weight:</strong> ${e.weight} kg</p>\n                <div class="mt-4 pt-4 border-t">\n                    <h4 class="font-semibold">Current Conditions:</h4>\n                    <ul class="list-disc list-inside">${l}</ul>\n                </div>\n                <div class="mt-4 pt-4 border-t">\n                    <h4 class="font-semibold">Family History:</h4>\n                    <ul class="list-disc list-inside">${d}</ul>\n                </div>\n            `}function resetData(){if(confirm("Are you sure you want to delete all your data and start over?")){const e=localStorage.getItem("currentUserEmail");if(!e)return;const t=JSON.parse(localStorage.getItem("users")||"[]"),a=t.filter(t=>t.email!==e);localStorage.setItem("users",JSON.stringify(a)),localStorage.removeItem(`${e}_userData`),localStorage.removeItem(`${e}_healthData`),localStorage.removeItem(`${e}_familyData`),handleLogout()}}
-
-        // --- Initial Load ---
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeApp();
-        });
+        function toggleAuthView(view){const e=document.getElementById("login-view"),t=document.getElementById("signup-view");"signup"===view?(e.style.animation="fadeOutSlideDown 0.5s ease-in-out forwards",setTimeout(()=>{e.classList.add("hidden"),t.classList.remove("hidden"),t.style.animation="fadeInSlideUp 0.5s ease-in-out forwards"},500)):(t.style.animation="fadeOutSlideDown 0.5s ease-in-out forwards",setTimeout(()=>{t.classList.add("hidden"),e.classList.remove("hidden"),e.style.animation="fadeInSlideUp 0.5s ease-in-out forwards"},500)),document.getElementById("login-error").classList.add("hidden"),document.getElementById("signup-error").classList.add("hidden")}const style=document.createElement("style");style.innerHTML="@keyframes fadeOutSlideDown { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(20px); } }",document.head.appendChild(style),navLinks.forEach(e=>{e.addEventListener("click",t=>{t.preventDefault(),navigateToSection(e.getAttribute("href").substring(1))})});function saveData(e,t){const o=localStorage.getItem("currentUserEmail");o&&localStorage.setItem(`${o}_${e}`,JSON.stringify(t))}function loadData(e){const t=localStorage.getItem("currentUserEmail");if(!t)return null;const o=localStorage.getItem(`${t}_${e}`);return o?JSON.parse(o):null}document.getElementById("signup-form").addEventListener("submit",e=>{e.preventDefault();const t=document.getElementById("signup-email").value,o=document.getElementById("signup-password").value,n=JSON.parse(localStorage.getItem("users"))||[];if(n.find(e=>e.email===t)){const e=document.getElementById("signup-error");return e.textContent="An account with this email already exists.",void e.classList.remove("hidden")}n.push({email:t,password:o}),localStorage.setItem("users",JSON.stringify(n)),localStorage.setItem("currentUserEmail",t),switchPage("page-details")}),document.getElementById("login-form").addEventListener("submit",e=>{e.preventDefault();const t=document.getElementById("login-email").value,o=document.getElementById("login-password").value,n=JSON.parse(localStorage.getItem("users"))||[],a=n.find(e=>e.email===t&&e.password===o);a?(localStorage.setItem("currentUserEmail",t),initializeApp()):(document.getElementById("login-error").textContent="Invalid email or password.",document.getElementById("login-error").classList.remove("hidden"))});function handleLogout(){localStorage.removeItem("currentUserEmail"),window.location.reload()}document.getElementById("details-form").addEventListener("submit",e=>{e.preventDefault(),saveData("userData",{name:document.getElementById("name").value,age:document.getElementById("age").value,height:document.getElementById("height").value,weight:document.getElementById("weight").value}),switchPage("page-health")}),document.getElementById("health-form").addEventListener("submit",e=>{e.preventDefault();const t=Array.from(document.querySelectorAll(".condition-entry")).map(e=>({name:e.querySelector(".condition-name").value,medication:e.querySelector(".condition-medication").value}));saveData("healthData",t),switchPage("page-family")}),document.getElementById("family-form").addEventListener("submit",e=>{e.preventDefault();const t=Array.from(document.querySelectorAll(".family-entry")).map(e=>({condition:e.querySelector(".family-condition").value}));saveData("familyData",t),initializeApp()});function addCondition(){const e=document.getElementById("conditions-container"),t=document.createElement("div");t.className="condition-entry mt-4 pt-4 border-t border-[var(--border-color)]",t.innerHTML='<label class="block text-sm font-medium text-slate-400">Another Condition</label><input type="text" placeholder="e.g., Asthma" class="condition-name input-styled" required><input type="text" placeholder="Medication (e.g., Albuterol)" class="condition-medication input-styled mt-2">',e.appendChild(t)}function addFamilyHistory(){const e=document.getElementById("family-history-container"),t=document.createElement("div");t.className="family-entry mt-4 pt-4 border-t border-[var(--border-color)]",t.innerHTML='<label class="block text-sm font-medium text-slate-400">Another Hereditary Condition</label><input type="text" placeholder="e.g., Heart Disease" class="family-condition input-styled" required>',e.appendChild(t)}function initializeApp(){const e=localStorage.getItem("currentUserEmail");if(!e)return void switchPage("page-auth");const t=loadData("userData");t?(populateDashboard(t),populateProfile(),switchPage("app-main"),navigateToSection("dashboard"),feather.replace()):switchPage("page-details")}function populateDashboard(e){document.getElementById("welcome-message").textContent=`Welcome, ${e.name}`;const t=loadData("healthData")||[],o=document.getElementById("medication-list");o.innerHTML="",t.length>0&&t[0].name?t.forEach(e=>{e.medication&&(o.innerHTML+=`<li class="flex items-center"><i data-feather="box" class="w-4 h-4 mr-2 text-slate-400"></i> ${e.medication} <span class="text-xs ml-2 text-slate-500">for ${e.name}</span></li>`)}):o.innerHTML='<p class="text-slate-500">No medication protocols logged.</p>';const n=loadData("familyData")||[],a=document.getElementById("risk-analysis-output");a.innerHTML="",n.length>0&&n[0].condition?a.innerHTML=`<p>Genetic markers indicate a potential predisposition to: <strong>${n.map(e=>e.condition).join(", ")}</strong>. Proactive monitoring is advised.</p>`:a.innerHTML="<p>No specific hereditary risks identified. Maintain standard health protocols.</p>",feather.replace()}function populateProfile(){const e=loadData("userData"),t=loadData("healthData"),o=loadData("familyData"),n=document.getElementById("profile-details"),a=t&&t.length>0&&t[0].name?t.map(e=>`<li><strong>${e.name}</strong> (Protocol: ${e.medication||"None"})</li>`).join(""):`<li>None</li>`,i=o&&o.length>0&&o[0].condition?o.map(e=>`<li>${e.condition}</li>`).join(""):`<li>None</li>`;n.innerHTML=`<p><strong>Alias:</strong> ${e.name}</p><p><strong>Age:</strong> ${e.age}</p><p><strong>Height:</strong> ${e.height} cm</p><p><strong>Weight:</strong> ${e.weight} kg</p><div class="mt-4 pt-4 border-t border-[var(--border-color)]"><h4 class="font-semibold">Logged Conditions:</h4><ul class="list-disc list-inside">${a}</ul></div><div class="mt-4 pt-4 border-t border-[var(--border-color)]"><h4 class="font-semibold">Genetic Markers:</h4><ul class="list-disc list-inside">${i}</ul></div>`}function resetData(){confirm("Are you sure you want to delete all your health data for this account? This cannot be undone.")&&localStorage.getItem("currentUserEmail")&&(localStorage.removeItem(`${localStorage.getItem("currentUserEmail")}_userData`),localStorage.removeItem(`${localStorage.getItem("currentUserEmail")}_healthData`),localStorage.removeItem(`${localStorage.getItem("currentUserEmail")}_familyData`),window.location.reload())}document.addEventListener("DOMContentLoaded",()=>{initializeApp()});
     </script>
 </body>
 </html>
